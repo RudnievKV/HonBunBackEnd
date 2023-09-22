@@ -1,5 +1,4 @@
-﻿using HonbunNoAnki.DBContext;
-using HonbunNoAnkiApi.Dtos.DictionaryDtos.KanjiDtos;
+﻿using HonbunNoAnkiApi.Dtos.DictionaryDtos.KanjiDtos;
 using HonbunNoAnkiApi.Models.DictionaryModels;
 using HonbunNoAnkiApi.Models.DictionaryModels.KanjiModels;
 using HonbunNoAnkiApi.Repositories.Interfaces;

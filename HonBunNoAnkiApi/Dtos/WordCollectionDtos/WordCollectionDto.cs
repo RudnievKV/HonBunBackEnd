@@ -1,5 +1,4 @@
-﻿using HonbunNoAnki.Models;
-using HonbunNoAnkiApi.Dtos.DictionaryDtos.WordDtos;
+﻿using HonbunNoAnkiApi.Dtos.DictionaryDtos.WordDtos;
 using HonbunNoAnkiApi.Dtos.UserDtos;
 using HonbunNoAnkiApi.Dtos.WordDtos;
 using System;

@@ -1,5 +1,4 @@
-﻿using HonbunNoAnki.Models;
-using HonbunNoAnkiApi.Models;
+﻿using HonbunNoAnkiApi.Models;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 

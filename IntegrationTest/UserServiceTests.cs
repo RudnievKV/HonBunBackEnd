@@ -1,8 +1,5 @@
 using AuthorizationApi.Dtos;
 using AutoMapper;
-using FakeItEasy;
-using HonbunNoAnki;
-using HonbunNoAnki.Models;
 using HonbunNoAnkiApi.Controllers;
 using HonbunNoAnkiApi.Dtos.UserDtos;
 using HonbunNoAnkiApi.Services;

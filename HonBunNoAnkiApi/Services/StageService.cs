@@ -1,8 +1,7 @@
 ﻿using AutoMapper;
-using HonbunNoAnki.DBContext;
-using HonbunNoAnki.Models;
 using HonbunNoAnkiApi.Dtos.StageDtos;
 using HonbunNoAnkiApi.Dtos.UserDtos;
+using HonbunNoAnkiApi.Models;
 using HonbunNoAnkiApi.Services.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;

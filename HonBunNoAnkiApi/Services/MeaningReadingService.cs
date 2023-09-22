@@ -1,6 +1,4 @@
 ﻿using AutoMapper;
-using HonbunNoAnki.DBContext;
-using HonbunNoAnki.Models;
 using HonbunNoAnkiApi.Dtos.MeaningReadingDtos;
 using HonbunNoAnkiApi.Dtos.StageDtos;
 using HonbunNoAnkiApi.Models;

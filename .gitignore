@@ -144,3 +144,5 @@ AuthorizationApi.Common/obj/
 AuthorizationApi.Common/bin/
 AuthorizationApi/obj/
 AuthorizationApi/bin/
+IntegrationTest/obj/
+IntegrationTest/bin/

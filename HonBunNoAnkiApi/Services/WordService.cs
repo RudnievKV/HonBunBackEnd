@@ -1,6 +1,4 @@
 ﻿using AutoMapper;
-using HonbunNoAnki.DBContext;
-using HonbunNoAnki.Models;
 using HonbunNoAnkiApi.Dtos.DictionaryDtos.WordDtos;
 using HonbunNoAnkiApi.Dtos.MeaningReadingDtos;
 using HonbunNoAnkiApi.Dtos.StageDtos;
@@ -9,7 +7,6 @@ using HonbunNoAnkiApi.Models;
 using HonbunNoAnkiApi.Services.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
-using MonteNegRo.Common;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;

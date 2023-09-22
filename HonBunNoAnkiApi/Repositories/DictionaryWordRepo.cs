@@ -1,6 +1,4 @@
-﻿using HonbunNoAnki.DBContext;
-using HonbunNoAnki.Models;
-using HonbunNoAnkiApi.DBContext;
+﻿using HonbunNoAnkiApi.DBContext;
 using HonbunNoAnkiApi.Models.DictionaryModels;
 using HonbunNoAnkiApi.Models.DictionaryModels.KanjiModels;
 using HonbunNoAnkiApi.Models.DictionaryModels.NameModels;

@@ -1,5 +1,4 @@
-﻿using HonbunNoAnki.Models;
-using HonbunNoAnkiApi.Models;
+﻿using HonbunNoAnkiApi.Models;
 using System.Collections.Generic;
 using System;
 using HonbunNoAnkiApi.Dtos.StageDtos;
