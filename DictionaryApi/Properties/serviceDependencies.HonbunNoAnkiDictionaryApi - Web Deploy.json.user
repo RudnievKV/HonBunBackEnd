@@ -1,0 +1,20 @@
+{
+  "dependencies": {
+    "apis2": {
+      "restored": true,
+      "restoreTime": "2022-11-09T15:09:12.0012975Z"
+    }
+  },
+  "parameters": {
+    "apis2.subscriptionId": {
+      "Name": "apis2.subscriptionId",
+      "Type": "subscription",
+      "Value": "853fb504-4198-4c96-acda-c4647165e133"
+    },
+    "apis2.resourceGroupName": {
+      "Name": "apis2.resourceGroupName",
+      "Type": "resourceGroup",
+      "Value": "HonbunNoAnkiResourceGroup"
+    }
+  }
+}

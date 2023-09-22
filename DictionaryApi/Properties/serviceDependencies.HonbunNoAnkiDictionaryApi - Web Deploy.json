@@ -1,0 +1,9 @@
+{
+  "dependencies": {
+    "apis2": {
+      "apiEndpoint": "https://honbunnoankimanagement.azure-api.net/dictionaryApi",
+      "resourceId": "/subscriptions/[parameters('subscriptionId')]/resourceGroups/[parameters('resourceGroupName')]/providers/Microsoft.ApiManagement/service/HonbunNoAnkiManagement/apis/DictionaryApi",
+      "type": "apis.azure"
+    }
+  }
+}
