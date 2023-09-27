@@ -8,7 +8,7 @@ namespace HonbunNoAnkiApi.Services.Interfaces
     public interface IWordCollectionService
     {
         public Task<WordCollectionDto> GetWordCollection(long id);
-        public Task<IEnumerable<WordCollectionDto>> GetWordCollections(long userID);
+        public Task<IEnumerable<WordCollectionDto>> GetWordCollections();
         public Task<IEnumerable<WordCollectionDto>> GetUserWordCollections(long id);
         public Task<WordCollectionDto> CreateWordCollection(WordCollectionCreateDto wordCollectionCreateDto);
         public Task<WordCollectionDto> CreateWordsFromText(string text, long wordCollectionID);

@@ -15,7 +15,10 @@ namespace HonbunNoAnkiApi.DBContext
         public DbSet<Stage> Stages { get; set; }
         public DbSet<Word> Words { get; set; }
         public DbSet<WordCollection> WordCollections { get; set; }
-        public DbSet<MeaningReading> MeaningReadings { get; set; }
+        public DbSet<WordDefinition> WordDefinitions { get; set; }
+        public DbSet<Reading> Readings { get; set; }
+        public DbSet<Meaning> Meanings { get; set; }
+        public DbSet<MeaningValue> MeaningValues { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<WordCollection>().HasOne(x => x.User)
@@ -30,9 +33,21 @@ namespace HonbunNoAnkiApi.DBContext
                 .WithMany(x => x.Words)
                 .HasForeignKey(x => x.WordCollection_ID);
 
-            modelBuilder.Entity<MeaningReading>().HasOne(x => x.Word)
-                .WithMany(x => x.MeaningReadings)
+            modelBuilder.Entity<WordDefinition>().HasOne(x => x.Word)
+                .WithMany(x => x.WordDefinitions)
                 .HasForeignKey(x => x.Word_ID)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            modelBuilder.Entity<Meaning>().HasOne(x => x.WordDefinition)
+                .WithMany(x => x.Meanings)
+                .HasForeignKey(x => x.WordDefinition_ID);
+            modelBuilder.Entity<MeaningValue>().HasOne(x => x.Meaning)
+                .WithMany(x => x.MeaningValues)
+                .HasForeignKey(x => x.Meaning_ID);
+
+            modelBuilder.Entity<WordDefinition>().HasOne(x => x.Reading)
+                .WithOne(x => x.WordDefinition)
+                .HasForeignKey<Reading>(x => x.WordDefinition_ID)
                 .OnDelete(DeleteBehavior.Cascade);
         }
     }

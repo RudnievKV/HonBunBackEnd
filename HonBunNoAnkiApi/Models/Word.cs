@@ -13,9 +13,9 @@ namespace HonbunNoAnkiApi.Models
         public long Word_ID { get; init; }
         public long WordCollection_ID { get; init; }
         public long? Stage_ID { get; init; }
-        public virtual Stage Stage { get; init; }
+        public virtual Stage? Stage { get; init; }
         public virtual WordCollection WordCollection { get; init; }
-        public virtual IEnumerable<MeaningReading> MeaningReadings { get; init; }
+        public virtual IEnumerable<WordDefinition>? WordDefinitions { get; init; }
         public bool IsInSRS { get; init; }
         public DateTimeOffset? StartInitialSRSDate { get; init; }
         public DateTimeOffset? StartCurrentSRSDate { get; init; }

@@ -16,7 +16,7 @@ namespace HonbunNoAnkiApi.Controllers
     [Route("api/users")]
     [ApiController]
     [Produces("application/json")]
-    [Authorize]
+    //[Authorize]
     [EnableCors(CORSPolicies.StandartCORSPolicy)]
     public class UserController : ControllerBase
     {

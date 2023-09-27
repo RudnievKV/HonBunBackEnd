@@ -18,7 +18,7 @@ namespace HonbunNoAnkiApi.Repositories
         {
             var wordCollection = await _dbContext.WordCollections
                .Include(s => s.User)
-               .Include(s => s.Words).ThenInclude(s => s.MeaningReadings)
+               .Include(s => s.Words).ThenInclude(s => s.WordDefinitions)
                .Include(s => s.Words).ThenInclude(s => s.Stage)
                .Where(s => s.WordCollection_ID == id)
                .SingleOrDefaultAsync();
@@ -29,7 +29,8 @@ namespace HonbunNoAnkiApi.Repositories
         {
             var wordCollections = await _dbContext.WordCollections
                             .Include(s => s.User)
-                            .Include(s => s.Words).ThenInclude(s => s.MeaningReadings)
+                            .Include(s => s.Words).ThenInclude(s => s.WordDefinitions).ThenInclude(s => s.Reading)
+                            .Include(s => s.Words).ThenInclude(s => s.WordDefinitions).ThenInclude(s => s.Meanings).ThenInclude(s => s.MeaningValues)
                             .Include(s => s.Words).ThenInclude(s => s.Stage)
                             .ToListAsync();
             return wordCollections;

@@ -1,4 +1,3 @@
-using HonbunNoAnkiApi.Common;
 using HonbunNoAnkiApi.DBContext;
 using HonbunNoAnkiApi.DBThrottlePipeline;
 using HonbunNoAnkiApi.Models.DictionaryModels;
@@ -77,7 +76,7 @@ namespace HonbunNoAnkiApi
             services.AddScoped<IUserRepo, UserRepo>();
             services.AddScoped<IWordCollectionRepo, WordCollectionRepo>();
             services.AddScoped<IWordRepo, WordRepo>();
-            services.AddScoped<IMeaningReadingRepo, MeaningReadingRepo>();
+            services.AddScoped<IWordDefinitionRepo, WordDefinitionRepo>();
             services.AddScoped<IUnitOfWork, UnitOfWork>();
 
 
@@ -88,7 +87,7 @@ namespace HonbunNoAnkiApi
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IWordCollectionService, WordCollectionService>();
             services.AddScoped<IWordService, WordService>();
-            services.AddScoped<IMeaningReadingService, MeaningReadingService>();
+            services.AddScoped<IWordDefinitionService, WordDefinitionService>();
 
             services.AddSingleton<IConnectionThrottlingPipeline, ConnectionThrottlingPipeline>();
 
@@ -133,8 +132,7 @@ namespace HonbunNoAnkiApi
                     {
                         builder.AllowAnyHeader()
                             .AllowAnyMethod()
-                            .WithOrigins("http://localhost:4200")
-                            .AllowCredentials();
+                            .AllowAnyOrigin();
                     }
                     else
                     {

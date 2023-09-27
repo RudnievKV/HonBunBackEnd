@@ -17,7 +17,7 @@ namespace HonbunNoAnkiApi.Controllers
     [Route("api/stages")]
     [ApiController]
     [Produces("application/json")]
-    [Authorize]
+    //[Authorize]
     [EnableCors(CORSPolicies.StandartCORSPolicy)]
     public class StageController : ControllerBase
     {

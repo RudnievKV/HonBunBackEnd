@@ -46,7 +46,7 @@ namespace HonbunNoAnkiApi.Services
             var wordCollections = await _unitOfWork.WordCollectionRepo
                 .Find(s => s.User_ID == id)
                 .Include(s => s.User)
-                .Include(s => s.Words).ThenInclude(s => s.MeaningReadings)
+                .Include(s => s.Words).ThenInclude(s => s.WordDefinitions)
                 .Include(s => s.Words).ThenInclude(s => s.Stage)
                 .ToListAsync();
             var wordCollectionDtos = new List<WordCollectionDto>();
@@ -57,14 +57,9 @@ namespace HonbunNoAnkiApi.Services
             }
             return wordCollectionDtos;
         }
-        public async Task<IEnumerable<WordCollectionDto>> GetWordCollections(long userID)
+        public async Task<IEnumerable<WordCollectionDto>> GetWordCollections()
         {
-            var wordCollections = await _unitOfWork.WordCollectionRepo
-                .Find(s => s.User_ID != userID)
-                .Include(s => s.User)
-                .Include(s => s.Words).ThenInclude(s => s.MeaningReadings)
-                .Include(s => s.Words).ThenInclude(s => s.Stage)
-                .ToListAsync();
+            var wordCollections = await _unitOfWork.WordCollectionRepo.GetWordCollections();
             var wordCollectionDtos = new List<WordCollectionDto>();
             foreach (var wordCollection in wordCollections)
             {
@@ -83,46 +78,6 @@ namespace HonbunNoAnkiApi.Services
                 User_ID = wordCollectionCreateDto.User_ID
             };
             _unitOfWork.WordCollectionRepo.Create(newWordCollection);
-
-            //foreach (var word in wordCollectionCreateDto.Words)
-            //{
-            //    Word newWord;
-            //    if (word.IsInSRS)
-            //    {
-            //        newWord = new Word()
-            //        {
-            //            CreatedDate = System.DateTimeOffset.Now,
-            //            IsInSRS = word.IsInSRS,
-            //            Stage_ID = word.Stage_ID,
-            //            WordCollection = newWordCollection,
-            //            StartInitialSRSDate = System.DateTimeOffset.Now,
-            //            StartCurrentSRSDate = System.DateTimeOffset.Now,
-            //        };
-            //    }
-            //    else
-            //    {
-            //        newWord = new Word()
-            //        {
-            //            CreatedDate = System.DateTimeOffset.Now,
-            //            IsInSRS = word.IsInSRS,
-            //            WordCollection = newWordCollection,
-            //            Stage_ID = word.Stage_ID,
-
-            //        };
-            //    }
-            //    _dbContext.Words.Add(newWord);
-            //    foreach (var definition in word.Definitions)
-            //    {
-            //        var meaningReading = new MeaningReading()
-            //        {
-            //            PartOfSpeech = definition.PartOfSpeech,
-            //            Reading = definition.Reading,
-            //            Meaning = definition.Meaning,
-            //            Word = newWord,
-            //        };
-            //        _dbContext.MeaningReadings.Add(meaningReading);
-            //    }
-            //}
 
 
             await _unitOfWork.SaveChangesAsync();
@@ -149,7 +104,7 @@ namespace HonbunNoAnkiApi.Services
             var wordCollection = await _unitOfWork.WordCollectionRepo
                 .Find(s => s.WordCollection_ID == id)
                 .AsNoTracking()
-                .Include(s => s.Words).ThenInclude(s => s.MeaningReadings)
+                .Include(s => s.Words).ThenInclude(s => s.WordDefinitions)
                 .SingleOrDefaultAsync();
 
             if (wordCollection == null)
@@ -164,56 +119,6 @@ namespace HonbunNoAnkiApi.Services
                 UpdatedDate = System.DateTimeOffset.Now
             };
             _unitOfWork.WordCollectionRepo.Update(newWordCollection);
-
-
-
-            //foreach (var word in wordCollection.Words)
-            //{
-            //    _dbContext.Words.Remove(word);
-            //}
-
-
-
-
-            //foreach (var word in wordCollectionUpdateDto.Words)
-            //{
-            //    Word newWord;
-            //    if (word.IsInSRS)
-            //    {
-            //        newWord = new Word()
-            //        {
-            //            CreatedDate = System.DateTimeOffset.Now,
-            //            IsInSRS = word.IsInSRS,
-            //            Stage_ID = word.Stage_ID,
-            //            WordCollection = newWordCollection,
-            //            StartInitialSRSDate = System.DateTimeOffset.Now,
-            //            StartCurrentSRSDate = System.DateTimeOffset.Now,
-            //        };
-            //    }
-            //    else
-            //    {
-            //        newWord = new Word()
-            //        {
-            //            CreatedDate = System.DateTimeOffset.Now,
-            //            IsInSRS = word.IsInSRS,
-            //            WordCollection = newWordCollection,
-            //            Stage_ID = word.Stage_ID,
-
-            //        };
-            //    }
-            //    _dbContext.Words.Add(newWord);
-            //    foreach (var definition in word.Definitions)
-            //    {
-            //        var meaningReading = new MeaningReading()
-            //        {
-            //            PartOfSpeech = definition.PartOfSpeech,
-            //            Reading = definition.Reading,
-            //            Meaning = definition.Meaning,
-            //            Word = newWord,
-            //        };
-            //        _dbContext.MeaningReadings.Add(meaningReading);
-            //    }
-            //}
 
             await _unitOfWork.SaveChangesAsync();
 
@@ -262,15 +167,12 @@ namespace HonbunNoAnkiApi.Services
                 };
                 _unitOfWork.WordRepo.Create(newWord);
 
-                var newMeaningReading = new MeaningReading()
+                var wordDefinition = new WordDefinition()
                 {
                     OriginalEntry = dictionaryWord.OriginalEntry,
-                    PartOfSpeech = partOfSpeeches,
-                    Reading = readings,
-                    Meaning = meanings,
                     Word = newWord
                 };
-                _unitOfWork.MeaningReadingRepo.Create(newMeaningReading);
+                _unitOfWork.WordDefinitionRepo.Create(wordDefinition);
 
 
             }
@@ -286,7 +188,7 @@ namespace HonbunNoAnkiApi.Services
             var wordCollection = await _unitOfWork.WordCollectionRepo
                 .Find(s => s.WordCollection_ID == wordCollectionID)
                 .Include(s => s.User)
-                .Include(s => s.Words).ThenInclude(s => s.MeaningReadings)
+                .Include(s => s.Words).ThenInclude(s => s.WordDefinitions)
                 .Include(s => s.Words).ThenInclude(s => s.Stage)
                 .SingleOrDefaultAsync();
 
@@ -317,18 +219,15 @@ namespace HonbunNoAnkiApi.Services
 
                 };
                 _unitOfWork.WordRepo.Create(newWord);
-                foreach (var meaningReading in word.MeaningReadings)
+                foreach (var meaningReading in word.WordDefinitions)
                 {
-                    var newMeaningReading = new MeaningReading()
+                    var newMeaningReading = new WordDefinition()
                     {
                         Word = newWord,
                         OriginalEntry = meaningReading.OriginalEntry,
-                        PartOfSpeech = meaningReading.PartOfSpeech,
-                        Reading = meaningReading.Reading,
-                        Meaning = meaningReading.Meaning,
 
                     };
-                    _unitOfWork.MeaningReadingRepo.Create(newMeaningReading);
+                    _unitOfWork.WordDefinitionRepo.Create(newMeaningReading);
                 }
 
             }
@@ -542,22 +441,6 @@ namespace HonbunNoAnkiApi.Services
                 }
             }
             return wordNameEntryDtos;
-            //foreach (var originalWord in words)
-            //{
-            //    if (nameIdList.Contains())
-            //    var wordEntryDto = new WordNameEntryDto()
-            //    {
-            //        OriginalEntry = originalWord,
-            //        WordDtos = wordDtos[count],
-            //        NameDtos = namesDtos[count],
-            //    };
-            //    count++;
-            //    wordEntryDtos.Add(wordEntryDto);
-            //}
-
-
-
-            //return (originalEntries: words, dictionaryEntries: dictionaryWords);
         }
     }
 }

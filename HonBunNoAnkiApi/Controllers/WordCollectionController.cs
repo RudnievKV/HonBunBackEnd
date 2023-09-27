@@ -17,7 +17,7 @@ namespace HonbunNoAnkiApi.Controllers
     [Route("api/wordCollections")]
     [ApiController]
     [Produces("application/json")]
-    [Authorize]
+    //[Authorize]
     [EnableCors(CORSPolicies.StandartCORSPolicy)]
     public class WordCollectionController : ControllerBase
     {
@@ -32,7 +32,7 @@ namespace HonbunNoAnkiApi.Controllers
         {
             try
             {
-                var wordCollectionDtos = await _wordCollectionService.GetWordCollections(User_ID);
+                var wordCollectionDtos = await _wordCollectionService.GetWordCollections();
 
 
                 return Ok(wordCollectionDtos);

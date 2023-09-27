@@ -18,7 +18,7 @@ namespace HonbunNoAnkiApi.Controllers
     [Route("api/words")]
     [ApiController]
     [Produces("application/json")]
-    [Authorize]
+    //[Authorize]
     [EnableCors(CORSPolicies.StandartCORSPolicy)]
     public class WordController : ControllerBase
     {

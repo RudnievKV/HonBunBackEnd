@@ -1,6 +1,5 @@
 ﻿using AutoMapper;
 using HonbunNoAnkiApi.Dtos.DictionaryDtos.WordDtos;
-using HonbunNoAnkiApi.Dtos.MeaningReadingDtos;
 using HonbunNoAnkiApi.Dtos.StageDtos;
 using HonbunNoAnkiApi.Dtos.WordDtos;
 using HonbunNoAnkiApi.Models;
@@ -26,7 +25,7 @@ namespace HonbunNoAnkiApi.Services
         {
             var word = await _unitOfWork.WordRepo
                 .Find(s => s.Word_ID == id)
-                .Include(s => s.MeaningReadings)
+                .Include(s => s.WordDefinitions)
                 .Include(s => s.Stage)
                 .SingleOrDefaultAsync();
             var wordDto = _mapper.Map<WordDto>(word);
@@ -58,15 +57,13 @@ namespace HonbunNoAnkiApi.Services
 
             foreach (var definition in wordCreateDto.Definitions)
             {
-                var newMeaningReading = new MeaningReading()
+                var newMeaningReading = new WordDefinition()
                 {
-                    Meaning = definition.Meaning,
-                    PartOfSpeech = definition.PartOfSpeech,
-                    Reading = definition.Reading,
+
                     OriginalEntry = definition.OriginalEntry,
                     Word = newWord
                 };
-                _unitOfWork.MeaningReadingRepo.Create(newMeaningReading);
+                _unitOfWork.WordDefinitionRepo.Create(newMeaningReading);
             }
             await _unitOfWork.SaveChangesAsync();
 
@@ -92,7 +89,7 @@ namespace HonbunNoAnkiApi.Services
             var word = await _unitOfWork.WordRepo
                 .Find(s => s.Word_ID == id)
                 .AsNoTracking()
-                .Include(s => s.MeaningReadings)
+                .Include(s => s.WordDefinitions)
                 .SingleOrDefaultAsync();
 
             if (word == null)
@@ -111,22 +108,19 @@ namespace HonbunNoAnkiApi.Services
 
             _unitOfWork.WordRepo.Update(newWord);
 
-            foreach (var readingMeaning in word.MeaningReadings)
+            foreach (var readingMeaning in word.WordDefinitions)
             {
-                _unitOfWork.MeaningReadingRepo.Delete(readingMeaning);
+                _unitOfWork.WordDefinitionRepo.Delete(readingMeaning);
             }
 
             foreach (var definition in wordUpdateDto.Definitions)
             {
-                var newMeaningReading = new MeaningReading()
+                var newMeaningReading = new WordDefinition()
                 {
-                    Meaning = definition.Meaning,
-                    PartOfSpeech = definition.PartOfSpeech,
-                    Reading = definition.Reading,
                     Word = newWord,
                     OriginalEntry = definition.OriginalEntry,
                 };
-                _unitOfWork.MeaningReadingRepo.Create(newMeaningReading);
+                _unitOfWork.WordDefinitionRepo.Create(newMeaningReading);
             }
 
             await _unitOfWork.SaveChangesAsync();
@@ -141,7 +135,7 @@ namespace HonbunNoAnkiApi.Services
 
             var words = await _unitOfWork.WordRepo
                 .Find(s => s.IsInSRS == true && s.StartCurrentSRSDate.Value.AddSeconds(s.Stage.Duration) <= System.DateTimeOffset.Now && s.WordCollection.User_ID == userID)
-                .Include(s => s.MeaningReadings)
+                .Include(s => s.WordDefinitions)
                 .Include(s => s.Stage)
                 .ToListAsync();
 
@@ -159,7 +153,7 @@ namespace HonbunNoAnkiApi.Services
             var word = await _unitOfWork.WordRepo
                 .Find(s => s.Word_ID == id)
                 .AsNoTracking()
-                .Include(s => s.MeaningReadings)
+                .Include(s => s.WordDefinitions)
                 .Include(s => s.Stage)
                 .SingleOrDefaultAsync();
 

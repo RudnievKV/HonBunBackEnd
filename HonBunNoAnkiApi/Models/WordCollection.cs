@@ -17,7 +17,7 @@ namespace HonbunNoAnkiApi.Models
         public DateTimeOffset? UpdatedDate { get; init; }
 
 
-        public virtual IEnumerable<Word> Words { get; init; }
+        public virtual IEnumerable<Word>? Words { get; init; }
         public long User_ID { get; init; }
         public virtual User User { get; init; }
     }

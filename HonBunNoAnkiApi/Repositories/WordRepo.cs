@@ -17,7 +17,7 @@ namespace HonbunNoAnkiApi.Repositories
         public async Task<Word> GetWord(long id)
         {
             var word = await _dbContext.Words
-                .Include(s => s.MeaningReadings)
+                .Include(s => s.WordDefinitions)
                 .Include(s => s.Stage)
                 .Where(s => s.Word_ID == id)
                 .SingleOrDefaultAsync();
@@ -27,7 +27,7 @@ namespace HonbunNoAnkiApi.Repositories
         public async Task<IEnumerable<Word>> GetWords()
         {
             var words = await _dbContext.Words
-                .Include(s => s.MeaningReadings)
+                .Include(s => s.WordDefinitions)
                 .Include(s => s.Stage).ToListAsync();
             return words;
         }
